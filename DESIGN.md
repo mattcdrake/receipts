@@ -49,7 +49,7 @@ receipts init <path>
 receipts add <image-path> --date <YYYY-MM-DD> --provider <name> --amount <n> [--notes <text>]
 receipts list [--year <n>] [--unreimbursed] [--provider <name>]
 receipts show <id>
-receipts reimburse <id> --amount <n> --date <YYYY-MM-DD>
+receipts reimburse <id> --amount <n> --date <YYYY-MM-DD> [--notes <text>]
 receipts balance
 receipts import              # batch-add receipts from a folder
 receipts validate            # schema, orphans, duplicates
@@ -58,6 +58,8 @@ receipts export --format csv > out.csv
 ```
 
 Vault location via `RECEIPTS_VAULT` env var with `--vault` flag override.
+
+Currency defaults to USD in v1; the format records it explicitly per receipt and per reimbursement (see `FORMAT.md`), but the CLI does not expose a `--currency` flag yet.
 
 ## Build path
 
@@ -81,10 +83,6 @@ Rough ordering. Ship and tag at every milestone.
 - **CI/release:** GitHub Actions + GoReleaser for cross-platform binaries.
 
 No caching layer in v1. Walk the vault on every command; fast enough for realistic volumes. A cache can be added later if needed.
-
-## Open questions
-
-- On-disk data architecture: folder layout, JSON schema shape, ID scheme, reimbursement-log representation, multi-page receipt grouping. To be resolved in `FORMAT.md` before code.
 
 ## Things to resist
 
